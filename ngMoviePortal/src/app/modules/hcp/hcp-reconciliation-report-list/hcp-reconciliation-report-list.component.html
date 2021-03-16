@@ -1,0 +1,274 @@
+<kt-portlet>
+	<kt-portlet-header class="'kt-portlet__head--lg'">
+		<ng-container ktPortletTitle>
+			<h3 class="kt-portlet__head-title">
+				HCP Reconciliation Reports
+			</h3>
+		</ng-container>
+		<ng-container ktPortletTools>
+			<div class="row" style="align-content: space-evenly;">
+				<div class="col">
+					<span [ngStyle]="{'display': isFilter ? 'inherit' : 'none'}" class="kt-badge kt-badge--filter">&nbsp;&nbsp; Search
+						Filter is Applied &nbsp;&nbsp;</span>
+				</div>
+			</div>
+			<div class="row new-button">
+				<div class="col">
+					<button mat-raised-button [routerLink]="['../../']" class="btn btn-secondary kt-margin-r-10" matTooltip="Back to the Ndis Report List">
+						<i class="material-icons">
+							arrow_back
+						</i>
+						<span class="kt-hidden-mobile">Back</span>
+					</button>
+				</div>
+			</div>
+
+			<!-- <button
+				mat-raised-button
+				class="btn btn-secondary kt-margin-r-10"
+				color="primary"
+				matTooltip="Upload File"
+				(click)="openUploadDialog()"
+			>
+				<i class="material-icons">
+					attach_file
+				</i>
+				<span class="kt-hidden-mobile">Upload</span>
+			</button>
+			<button
+				mat-raised-button
+				class="btn btn-secondary kt-margin-r-10"
+				(click)="downloadReports()"
+				color="accent"
+				matTooltip="Download Reports"
+				[disabled]="downloadBtnStatus$ | async"
+				[ngClass]="{
+					'kt-spinner kt-spinner--left kt-spinner--md kt-spinner--light':
+						downloadProgressStatus$ | async
+				}"
+				class="btn btn-primary btn-elevate kt-login__btn-primary"
+			>
+				<i class="material-icons">
+					insert_drive_file
+				</i>
+				<span class="kt-hidden-mobile">{{ downloadBtnTxt }} </span>
+			</button> -->
+		</ng-container>
+	</kt-portlet-header>
+	<kt-portlet-body>
+		<div class="kt-form__filtration">
+			<div class="row align-items-center">
+				<div class="col-md-2 kt-margin-bottom-10-mobile">
+					<mat-form-field class="mat-form-field-fluid" appearance="outline">
+						<input
+							matInput
+							placeholder="Search user"
+							#searchInput
+							placeholder="Search"
+						/>
+						<mat-hint align="start">
+							<strong>Search</strong> in all fields
+						</mat-hint>
+						<button mat-button *ngIf="searchInput.value" matSuffix mat-icon-button aria-label="Clear" (click)="searchInput.value = ''; loadData(taskId);">
+							<mat-icon>close</mat-icon>
+						</button>
+					</mat-form-field>
+				</div>
+			</div>
+		</div>
+
+		<div class="mat-table__wrapper">
+			<mat-table
+				#table
+				[dataSource]="dataSource"
+				matSort
+				#sort_ndis_task="matSort"
+				matSortActive="TaskId"
+				matSortDirection="desc"
+				matSortDisableClear
+			>
+				<ng-container matColumnDef="ClientCode">
+					<mat-header-cell *matHeaderCellDef mat-sort-header
+						>RCP ID</mat-header-cell
+					>
+					<mat-cell *matCellDef="let element">
+						{{ element.ClientCode }}
+					</mat-cell>
+				</ng-container>
+
+				<ng-container matColumnDef="FirstName">
+					<mat-header-cell *matHeaderCellDef mat-sort-header>
+						First Name</mat-header-cell
+					>
+					<mat-cell *matCellDef="let element">
+						<span>
+							{{ element.FirstName }}
+						</span>
+					</mat-cell>
+				</ng-container>
+
+				<ng-container matColumnDef="LastName">
+					<mat-header-cell *matHeaderCellDef mat-sort-header>
+						Last Name</mat-header-cell
+					>
+					<mat-cell *matCellDef="let element">
+						{{ element.LastName }}
+					</mat-cell>
+				</ng-container>
+
+				<ng-container matColumnDef="CRINumber">
+					<mat-header-cell *matHeaderCellDef mat-sort-header>
+						CRI Number</mat-header-cell
+					>
+					<mat-cell *matCellDef="let element">
+						{{ element.CRINumber}}
+					</mat-cell>
+				</ng-container>
+
+				<ng-container matColumnDef="ClaimReference">
+					<mat-header-cell *matHeaderCellDef mat-sort-header>
+						Claim Reference</mat-header-cell
+					>
+					<mat-cell *matCellDef="let element">
+						<mat-form-field class="">
+							<input matInput [value]="element.ClaimReference" (focusout) = "element.ClaimReference = $event.target.value ;saveRowData(element) "
+							>
+						</mat-form-field>
+					</mat-cell>
+				</ng-container>
+
+				<ng-container matColumnDef="ClaimFrom">
+					<mat-header-cell *matHeaderCellDef mat-sort-header>
+
+						Claim From
+					</mat-header-cell>
+					<mat-cell *matCellDef="let element">
+						{{ element.ClaimFrom | date:'dd/MM/yyyy'}}
+					</mat-cell>
+				</ng-container>
+
+				<ng-container matColumnDef="ClaimTo">
+					<mat-header-cell *matHeaderCellDef mat-sort-header>
+
+						Claim To
+					</mat-header-cell>
+					<mat-cell *matCellDef="let element">
+						{{ element.ClaimTo | date:'dd/MM/yyyy'}}
+					</mat-cell>
+				</ng-container>
+
+				<ng-container matColumnDef="IncomeCategory">
+					<mat-header-cell *matHeaderCellDef mat-sort-header>
+
+						Income Category
+					</mat-header-cell>
+					<mat-cell *matCellDef="let element">
+						{{ element.IncomeCategory }}
+					</mat-cell>
+				</ng-container>
+				<ng-container matColumnDef="ClaimableAmount">
+					<mat-header-cell *matHeaderCellDef mat-sort-header>
+						Claimable Amount</mat-header-cell
+					>
+					<mat-cell *matCellDef="let element">
+						{{ element.ClaimableAmount | currency }}
+					</mat-cell>
+				</ng-container>
+
+				<ng-container matColumnDef="ClaimedAmount">
+					<mat-header-cell *matHeaderCellDef mat-sort-header>
+						Claimed Amount</mat-header-cell
+					>
+					<mat-cell *matCellDef="let element">
+						<mat-form-field class="">
+							<input matInput [value]="currencyPipe.transform(element.ClaimedAmount?element.ClaimedAmount:0)" (keypress)="numberOnly($event)" (focus)="changeCurToNum($event)"
+							(focusout)="convertToCurrency($event,element)" (input) ="calDiffrece($event.target.value,element)" >
+						</mat-form-field>
+					</mat-cell>
+				</ng-container>
+
+				<ng-container matColumnDef="difference">
+					<mat-header-cell *matHeaderCellDef>
+						Difference</mat-header-cell
+					>
+					<mat-cell *matCellDef="let element">
+						{{ element.Difference | currency }}
+					</mat-cell>
+				</ng-container>
+
+				<ng-container matColumnDef="status">
+					<mat-header-cell *matHeaderCellDef> Status</mat-header-cell>
+					<mat-cell *matCellDef="let element">
+						<span [ngClass]="setPillClass(element.Status)" >
+							{{ setStaus(element.Status) }}
+						</span>
+					</mat-cell>
+				</ng-container>
+
+				<!-- Not use -->
+				<ng-container matColumnDef="SupportNumber">
+					<mat-header-cell *matHeaderCellDef mat-sort-header>
+						<!-- Service/Item -->
+						Support Number
+					</mat-header-cell>
+					<mat-cell *matCellDef="let element">
+						{{ element.SupportNumber }}
+					</mat-cell>
+				</ng-container>
+
+				<ng-container matColumnDef="Quantity">
+					<mat-header-cell *matHeaderCellDef mat-sort-header>
+						Quantity</mat-header-cell
+					>
+					<mat-cell *matCellDef="let element">
+						{{ element.Quantity }}
+					</mat-cell>
+				</ng-container>
+
+				<ng-container matColumnDef="Hours">
+					<mat-header-cell *matHeaderCellDef mat-sort-header>
+						Hours</mat-header-cell
+					>
+					<mat-cell *matCellDef="let element">
+						{{ element.Hours }}
+					</mat-cell>
+				</ng-container>
+
+				<ng-container matColumnDef="UnitPrice">
+					<mat-header-cell *matHeaderCellDef mat-sort-header>
+						Unit Price</mat-header-cell
+					>
+					<mat-cell *matCellDef="let element">
+						{{ element.UnitPrice | currency }}
+					</mat-cell>
+				</ng-container>
+
+				<mat-header-row
+					*matHeaderRowDef="displayedColumns"
+				></mat-header-row>
+
+				<mat-row
+					class="rowheightMatTable"
+					*matRowDef="let row; columns: displayedColumns"
+				></mat-row>
+			</mat-table>
+
+			<div class="mat-table__message" *ngIf="isTableEmpty">
+				No reports found
+			</div>
+
+			<div class="mat-table__bottom">
+				<mat-spinner
+					[diameter]="20"
+					*ngIf="loading$ | async"
+				></mat-spinner>
+				<mat-paginator
+					[pageSize]="pageSize"
+					[pageSizeOptions]="pageSizeOptions"
+					[showFirstLastButtons]="true"
+				>
+				</mat-paginator>
+			</div>
+		</div>
+	</kt-portlet-body>
+</kt-portlet>

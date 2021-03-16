@@ -1,0 +1,44 @@
+<kt-portlet>
+	<kt-portlet-header
+		[sticky]="true"
+		[class]="'kt-portlet__head--lg'"
+		[viewLoading$]=""
+		[title]="title"
+	>
+		<ng-container ktPortletTools> </ng-container>
+	</kt-portlet-header>
+
+	<kt-portlet-body class="kt-portlet__body  modal-custom-p">
+		<input type="file" (change)="onSelectFile($event)" />
+	</kt-portlet-body>
+
+	<div
+		class="kt-portlet__foot kt-portlet__no-border kt-portlet__foot--fit grey-footer modal-footer-pv-10"
+	>
+		<div class="row row-butn text-right">
+			<div class="col-lg-12">
+				<button
+					mat-raised-button
+					[mat-dialog-close]
+					matTooltip="Cancel changes"
+				>
+					Cancel</button
+				>&nbsp;
+				<button
+					mat-raised-button
+					color="primary"
+					(click)="upload()"
+					matTooltip="Proceed the reconciliation"
+					[ngClass]="{
+						'kt-spinner kt-spinner--left kt-spinner--md kt-spinner--light':
+							loading$ | async
+					}"
+					class="btn btn-primary btn-elevate kt-login__btn-primary"
+					[disabled]="loading$ | async"
+				>
+					{{ btnStatus }}
+				</button>
+			</div>
+		</div>
+	</div>
+</kt-portlet>

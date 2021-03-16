@@ -1,0 +1,216 @@
+<kt-portlet>
+	<kt-portlet-header [title]="'HCP Reports'">
+		<ng-container ktPortletTools>
+			<div class="row" style="align-content: space-evenly;">
+				<div class="col">
+					<span [ngStyle]="{'display': isFilter ? 'inherit' : 'none'}" class="kt-badge-hcp kt-badge--filter">&nbsp;&nbsp; Search
+						Filter is Applied &nbsp;&nbsp;</span>
+				</div>
+			</div>
+			<div class="row new-button">
+				<div class="col">
+					<button (click)="add()" mat-raised-button matTooltip="Create New Report" color="primary" type="button">
+						<!-- <i class="material-icons">
+					add
+				</i>
+				<span class="kt-hidden-mobile">New Report Task</span> -->
+						<span>New Report Task</span>
+					</button>
+				</div>
+			</div>
+		</ng-container>
+	</kt-portlet-header>
+
+	<kt-portlet-body>
+		<!-- search -->
+		<div class="kt-form__filtration">
+			<div class="row align-items-center">
+				<div class="col-md-2 kt-margin-bottom-10-mobile">
+					<mat-form-field class="mat-form-field-fluid" appearance="outline">
+						<input
+							matInput
+							placeholder="Search report"
+							#searchInput
+							placeholder="Search"
+						/>
+						<mat-hint align="start">
+							<strong>Search</strong> in all fields
+						</mat-hint>
+						<button mat-button *ngIf="searchInput.value" matSuffix mat-icon-button aria-label="Clear" (click)="searchInput.value = ''; loadData();">
+							<mat-icon>close</mat-icon>
+						</button>
+					</mat-form-field>
+				</div>
+			</div>
+		</div>
+
+		<!-- report table -->
+		<div class="mat-table__wrapper">
+			<mat-table
+				#table
+				[dataSource]="dataSource"
+				matSort
+				#sort_hcp_task="matSort"
+				matSortActive="TaskCode"
+				matSortDirection="desc"
+				matSortDisableClear
+			>
+				<mat-header-row
+					*matHeaderRowDef="displayedColumns"
+				></mat-header-row>
+
+				<mat-row
+					class="rowheightMatTable"
+					*matRowDef="let row; columns: displayedColumns"
+				></mat-row>
+
+				<!-- Task Code -->
+				<ng-container matColumnDef="TaskCode">
+					<mat-header-cell *matHeaderCellDef mat-sort-header>
+						Task Code</mat-header-cell
+					>
+					<mat-cell *matCellDef="let element">
+						<a
+						class="kt-link"
+						href="javascript:;"
+						[routerLink]="[
+							'reconciliation-list/',
+							element.TaskId
+						]"
+					>
+						{{ element.TaskCode }}
+					</a>
+
+					</mat-cell>
+				</ng-container>
+
+				<!-- Status -->
+				<ng-container matColumnDef="Status">
+					<mat-header-cell *matHeaderCellDef mat-sort-header>
+						Status</mat-header-cell
+					>
+					<mat-cell *matCellDef="let element">
+						<span [ngClass]="setPillClass(element)">
+							{{ element.Status }}
+						</span>
+					</mat-cell>
+				</ng-container>
+
+				<!-- From Date -->
+				<ng-container matColumnDef="FromDate">
+					<mat-header-cell *matHeaderCellDef mat-sort-header>
+						From Date</mat-header-cell
+					>
+					<mat-cell *matCellDef="let element">
+						{{ element.FromDate | date: "dd/MM/yyyy" }}
+					</mat-cell>
+				</ng-container>
+
+				<!-- To Date -->
+				<ng-container matColumnDef="ToDate">
+					<mat-header-cell *matHeaderCellDef mat-sort-header>
+						To Date</mat-header-cell
+					>
+					<mat-cell *matCellDef="let element">
+						{{ element.ToDate | date: "dd/MM/yyyy" }}
+					</mat-cell>
+				</ng-container>
+
+				<!-- Created By -->
+				<ng-container matColumnDef="CreatedBy">
+					<mat-header-cell *matHeaderCellDef mat-sort-header>
+						Created By</mat-header-cell
+					>
+					<mat-cell *matCellDef="let element">
+						{{ element.CreatedBy }}
+					</mat-cell>
+				</ng-container>
+
+				<!-- Created On -->
+				<ng-container matColumnDef="CreatedOn">
+					<mat-header-cell *matHeaderCellDef mat-sort-header>
+						Created On</mat-header-cell
+					>
+					<mat-cell *matCellDef="let element">
+						{{ element.CreatedOn | date: "dd/MM/yyyy" }}
+					</mat-cell>
+				</ng-container>
+
+				<!-- Actions -->
+				<ng-container matColumnDef="Actions">
+					<mat-header-cell *matHeaderCellDef>Actions</mat-header-cell>
+					<mat-cell *matCellDef="let element">
+						<button
+							mat-icon-button
+							color="primary"
+							matTooltip="{{
+								element.TaskId ? 'Retry' : 'View'
+							}} Task"
+							(click)="edit(element)"
+						>
+							<mat-icon>
+								autorenew
+							</mat-icon></button
+						>&nbsp;
+						<button
+							mat-icon-button
+							color="warn"
+							matTooltip="Delete Task"
+							type="button"
+							(click)="delete(element)"
+						>
+							<mat-icon>delete</mat-icon>
+						</button>
+					</mat-cell>
+				</ng-container>
+
+				<!-- Report -->
+				<ng-container matColumnDef="Report">
+					<mat-header-cell *matHeaderCellDef>Report</mat-header-cell>
+					<mat-cell *matCellDef="let element">
+						<button
+							mat-icon-button
+							color="primary"
+							matTooltip="Download Report"
+							(click)="downloadReport(element)"
+							[disabled]="element.StatusId != 3"
+						>
+							<mat-icon>
+								insert_drive_file
+							</mat-icon></button
+						>&nbsp;
+						<button
+							mat-icon-button
+							class="indigo"
+							matTooltip="Download Error Report"
+							type="button"
+							(click)="downloadErrorReport(element)"
+							[disabled]="element.StatusId != 5"
+						>
+							<mat-icon>insert_drive_file</mat-icon>
+						</button>
+					</mat-cell>
+				</ng-container>
+			</mat-table>
+
+			<div class="mat-table__message" *ngIf="isTableEmpty">
+				No reports found
+			</div>
+
+			<!-- pagination -->
+			<div class="mat-table__bottom">
+				<mat-spinner
+					[diameter]="20"
+					*ngIf="loading$ | async"
+				></mat-spinner>
+
+				<mat-paginator
+					[pageSize]="pageSize"
+					[pageSizeOptions]="pageSizeOptions"
+					[showFirstLastButtons]="true"
+				>
+				</mat-paginator>
+			</div>
+		</div>
+	</kt-portlet-body>
+</kt-portlet>

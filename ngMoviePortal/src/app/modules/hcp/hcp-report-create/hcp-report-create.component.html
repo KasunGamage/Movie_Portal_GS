@@ -1,0 +1,124 @@
+<kt-portlet>
+	<kt-portlet-header
+		[sticky]="true"
+		[class]="'kt-portlet__head--lg'"
+		[viewLoading$]=""
+		[title]="title"
+	>
+		<ng-container ktPortletTools></ng-container>
+	</kt-portlet-header>
+
+	<kt-portlet-body class="kt-portlet__body modal-custom-p">
+		<form [formGroup]="hcpTaskEditForm">
+			<!-- status on edit form -->
+			<div class="row" *ngIf="reportStatus">
+				<div class="col-md-12">
+					<div class="row">
+						<div class="col-md-8 kt-margin-bottom-10-mobile">
+							<h6>Status : {{ reportStatus }}</h6>
+							&nbsp;
+						</div>
+					</div>
+				</div>
+			</div>
+
+			<!-- input's bar -->
+			<div class="row">
+				<!-- From Date -->
+				<div class="col-lg-6">
+					<mat-form-field class="mat-form-field-fluid" appearance="outline">
+						<mat-label>From Date</mat-label>
+						<input
+							matInput
+							[matDatepicker]="pickerFromDate"
+							placeholder="Choose a date"
+							formControlName="fromDate"
+						/>
+						<mat-datepicker-toggle
+							matSuffix
+							[for]="pickerFromDate"
+						></mat-datepicker-toggle>
+						<mat-datepicker #pickerFromDate></mat-datepicker>
+						<mat-error
+							*ngIf="
+								hcpTaskEditForm.controls['fromDate'].hasError(
+									'required'
+								)
+							"
+						>
+							* From Date is required.
+						</mat-error>
+					</mat-form-field>
+				</div>
+
+				<!-- To Date -->
+				<div class="col-lg-6">
+					<mat-form-field class="mat-form-field-fluid" appearance="outline">
+						<mat-label>To Date</mat-label>
+						<input
+							matInput
+							[matDatepicker]="pickerToDate"
+							placeholder="Choose a date"
+							formControlName="toDate"
+						/>
+						<mat-datepicker-toggle
+							matSuffix
+							[for]="pickerToDate"
+						></mat-datepicker-toggle>
+						<mat-datepicker #pickerToDate></mat-datepicker>
+						<mat-error
+							*ngIf="
+								hcpTaskEditForm.controls['toDate'].hasError(
+									'required'
+								)
+							"
+						>
+							* To Date is required.
+						</mat-error>
+						<mat-error
+							*ngIf="
+								hcpTaskEditForm.controls['toDate'].errors
+									?.dateUnmatched
+							"
+						>
+							* To date should be greater than From date
+						</mat-error>
+					</mat-form-field>
+				</div>
+			</div>
+		</form>
+	</kt-portlet-body>
+
+	<!-- button bar -->
+	<div
+		class="kt-portlet__foot kt-portlet__no-border kt-portlet__foot--fit grey-footer modal-footer-pv-10"
+	>
+		<div class="row row-butn text-right">
+			<div class="col-lg-12 kt-margin-bottom-10-mobile">
+				<button
+					type="button"
+					mat-raised-button
+					[mat-dialog-close]
+					matTooltip="Cancel changes"
+				>
+					Cancel</button
+				>&nbsp;
+				<button
+					type="button"
+					mat-raised-button
+					(click)="save()"
+					color="primary"
+					matTooltip="Save changes"
+					[ngClass]="{
+						'kt-spinner kt-spinner--left kt-spinner--md kt-spinner--light':
+							loading$ | async
+					}"
+					class="btn btn-primary btn-elevate kt-login__btn-primary"
+					[disabled]="loading$ | async"
+				>
+					{{ saveButtonText }}
+				</button>
+			</div>
+		</div>
+	</div>
+</kt-portlet>
