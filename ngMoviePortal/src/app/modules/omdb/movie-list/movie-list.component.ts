@@ -3,7 +3,6 @@ import { Observable } from 'rxjs';
 import { OmdbService } from '../../../services/api/omdb.service';
 import { Movie, MovieInfo, SearchParameters } from '../../../models/omdb.model';
 import { MovieDataService } from '../../../services/data/movie-data.service';
-
 @Component({
   selector: 'app-movie-list',
   templateUrl: './movie-list.component.html',
@@ -12,6 +11,7 @@ import { MovieDataService } from '../../../services/data/movie-data.service';
 export class MovieListComponent implements OnInit {
   isSearchApplied: boolean;
   movieList: Movie[] = [];
+  movieInfo: MovieInfo;
   isNoResult = false;
   constructor(
     private movieDataService: MovieDataService,
@@ -62,6 +62,7 @@ export class MovieListComponent implements OnInit {
   getById(id: string): void {
     this.omdbService.getById(id).subscribe((res: MovieInfo) => {
       console.log(res);
+      this.movieInfo  = res;
     });
   }
 }
