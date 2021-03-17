@@ -1,0 +1,14 @@
+<app-search-bar></app-search-bar>
+<p *ngIf="!isSearchApplied">Welcome to OMDB Search, search something in the bar above!</p>
+<p *ngIf="isNoResult">Movie not found!</p>
+<div class="search-result-container">
+  <div class="search-result--item" *ngFor="let movie of movieList">
+    <img src={{movie.Poster}} />
+    <div class="title"><b>Title:</b> {{movie.Title}}</div>
+    <div class="year"><b>Year:</b> {{movie.Year}}</div>
+    <div class="type"><b>Type:</b> {{movie.Type}}</div>
+    <div>
+      <button class="submit-btn" (click)="moreDetails(movie.imdbID)">DETAILS</button>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,9 @@
+<div class="toolbar" role="banner">
+  <span>OMDB Search</span>
+  <div class="spacer"></div>
+  <span>Search a movie</span>
+  <input type="text" [formControl]="searchInputControl" />
+  <div>
+    <button class="submit-btn" (click)="search()">Search</button>
+  </div>
+</div>
