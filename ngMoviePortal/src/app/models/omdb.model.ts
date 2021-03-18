@@ -1,6 +1,6 @@
 export interface SearchParameters {
   title?: string;
-  year?: number | null;
+  page?: number | null;
 }
 
 export interface Movie {

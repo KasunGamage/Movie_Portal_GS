@@ -6,71 +6,126 @@
 }
 
 .search-result--item {
-  border: 1px solid;
-  border-radius: 10px;
+  box-shadow: 0 4px 17px rgba(0, 0, 0, 0.35);
   margin: 10px;
   display: flex;
-  flex-direction: column;
   font-size: 24px;
-  padding: 10px;
-}
-.search-result--item img {
-  max-width: 200px;
-  border-top-left-radius: 10px;
-  border-top-right-radius: 10px;
+  width: 35%;
+  height: 400px;
 }
 
-.search-result--item div {
-  max-width: 200px;
+.right {
+  width: 55%;
 }
 
-.search-result-error {
-  color: red;
-  font-size: 26px;
+.left {
+  width: 45%;
 }
 
-.search-result-loading {
+.title {
+  height: 80%;
+}
+
+.bottom {
+  height: 20%;
   position: relative;
-  margin-top: 20px;
-  width: 100%;
-  height: 6px;
-  background-color: #fdba2c;
+  border-top-style: outset;
 }
 
-.search-result-loading .bar {
-  content: "";
-  display: inline;
+.year {
+  float: left;
+}
+
+.details-button {
+  float: right;
+}
+
+.centerHor {
   position: absolute;
-  width: 0;
-  height: 100%;
-  left: 50%;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 100%;
+}
+
+.txt-center {
   text-align: center;
 }
-.search-result-loading .bar:nth-child(1) {
-  background-color: #da4733;
-  animation: loading 3s linear infinite;
+
+.border-dotted {
+  border-style: dotted;
+  border-color: #f53668;
+  background: #fdecf0;
+  margin: 30px 150px 0 150px;
+  color: #e41b4d;
+  font-size: larger;
 }
-.search-result-loading .bar:nth-child(2) {
-  background-color: #3b78e7;
-  animation: loading 3s linear 1s infinite;
+
+.border-welcome {
+  border-style: dotted;
+  border-color: #f2f5f7;
+  background: #f2f5f7;
+  margin: 30px 150px 0 150px;
+  color: black;
+  font-size: larger;
 }
-.search-result-loading .bar:nth-child(3) {
-  background-color: #fdba2c;
-  animation: loading 3s linear 2s infinite;
+
+.m-t-30 {
+  margin-top: 30px;
 }
-@keyframes loading {
-  from {
-    left: 50%;
-    width: 0;
-    z-index: 100;
-  }
-  33.3333% {
-    left: 0;
-    width: 100%;
-    z-index: 10;
-  }
-  to {
-    left: 0;
-    width: 100%;
-  }
+
+.submit-btn {
+  width: 100px;
+  background-color: #307afb;
+  border: none;
+  color: white;
+  padding: 7px;
+  text-decoration: none;
+  margin: 4px 2px;
+  cursor: pointer;
+  outline: none;
+  font-weight: bold;
+  border-radius: 4px;
+}
+
+.color-grey {
+  color: #d5d8dc;
+}
+
+.p-r-10 {
+  padding-right: 10px;
+}
+
+.p-t-10 {
+  padding-top: 10px;
+}
+
+.p-l-10 {
+  padding-left: 10px;
+}
+
+.p-hor-10 {
+  padding: 0 10px;
+}
+
+.no-margin {
+  margin: 0 !important;
+}
+
+.field-prop {
+  font-family: cursive;
+}
+
+.movie-title {
+  width: 100%;
+}
+
+.img {
+  height: 400px;
+  width: 100%;
+}
+
+.movie-details {
+  font-size: medium;
+  height: 80%;
+  overflow: auto;
 }

@@ -17,7 +17,7 @@ export class MovieDataService {
     this.isSearchApplied.next(status);
   }
 
-  getSearchAppliedStatus(): Observable<string>{
+  getSearchAppliedStatus(): Observable<string> {
     return this.isSearchApplied.asObservable();
   }
 }

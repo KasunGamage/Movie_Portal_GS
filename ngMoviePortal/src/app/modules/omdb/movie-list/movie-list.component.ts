@@ -1,5 +1,4 @@
-import { Component, OnInit } from '@angular/core';
-import { Observable } from 'rxjs';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { OmdbService } from '../../../services/api/omdb.service';
 import { Movie, MovieInfo, SearchParameters } from '../../../models/omdb.model';
 import { MovieDataService } from '../../../services/data/movie-data.service';
@@ -8,11 +7,12 @@ import { MovieDataService } from '../../../services/data/movie-data.service';
   templateUrl: './movie-list.component.html',
   styleUrls: ['./movie-list.component.scss'],
 })
-export class MovieListComponent implements OnInit {
+export class MovieListComponent implements OnInit, OnDestroy {
   isSearchApplied: boolean;
   movieList: Movie[] = [];
   movieInfo: MovieInfo;
   isNoResult = false;
+  errorMsg: string;
   constructor(
     private movieDataService: MovieDataService,
     private omdbService: OmdbService
@@ -28,17 +28,17 @@ export class MovieListComponent implements OnInit {
       .subscribe((searchVal: string) => {
         if (searchVal) {
           this.isSearchApplied = true;
-          this.getMovies(searchVal, 1995);
+          this.getMovies(searchVal, 1);
         } else {
           this.movieList = [];
         }
       });
   }
 
-  getMovies(title: string, year: number): void {
+  getMovies(title: string, page: number): void {
     const req: SearchParameters = {
       title,
-      year,
+      page,
     };
     this.omdbService.getMovies(req).subscribe((res: any) => {
       if (res && res.Response === 'True') {
@@ -51,6 +51,15 @@ export class MovieListComponent implements OnInit {
       ) {
         this.movieList = [];
         this.isNoResult = true;
+        this.errorMsg = res.Error;
+      } else if (
+        res &&
+        res.Response === 'False' &&
+        res.Error === 'Too many results.'
+      ) {
+        this.movieList = [];
+        this.isNoResult = true;
+        this.errorMsg = res.Error;
       }
     });
   }
@@ -61,8 +70,9 @@ export class MovieListComponent implements OnInit {
 
   getById(id: string): void {
     this.omdbService.getById(id).subscribe((res: MovieInfo) => {
-      console.log(res);
-      this.movieInfo  = res;
+      this.movieInfo = res;
     });
   }
+
+  ngOnDestroy(): void {}
 }

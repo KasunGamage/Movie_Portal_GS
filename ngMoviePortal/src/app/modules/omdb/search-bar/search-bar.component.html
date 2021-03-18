@@ -1,9 +1,10 @@
 <div class="toolbar" role="banner">
-  <span>OMDB Search</span>
+  <h2 class="p-l-10 p-r-10 f-f-auto">OMDB Search</h2>
   <div class="spacer"></div>
-  <span>Search a movie</span>
-  <input type="text" [formControl]="searchInputControl" />
-  <div>
+  <span class="p-r-10">Search a movie</span>
+  <input class="m-r-10" id="search" name="search" autocomplete="on" type="text" [formControl]="searchInputControl"
+    (keyup.enter)="search()" />
+  <div class="p-r-10">
     <button class="submit-btn" (click)="search()">Search</button>
   </div>
 </div>
