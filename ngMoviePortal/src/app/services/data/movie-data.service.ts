@@ -6,10 +6,11 @@ import { Observable } from 'rxjs/internal/Observable';
   providedIn: 'root',
 })
 export class MovieDataService {
-  inBoundDataSubject: Subject<string> = new Subject<string>();
-  parentPackageCode: string;
   private isSearchApplied: BehaviorSubject<string> = new BehaviorSubject<string>(
     ''
+  );
+  private totalrecords: BehaviorSubject<number> = new BehaviorSubject<number>(
+    0
   );
   constructor() {}
 
@@ -19,5 +20,13 @@ export class MovieDataService {
 
   getSearchAppliedStatus(): Observable<string> {
     return this.isSearchApplied.asObservable();
+  }
+
+  setTotalRecords(records: number): void {
+    this.totalrecords.next(records);
+  }
+
+  getTotalRecords(): Observable<number> {
+    return this.totalrecords.asObservable();
   }
 }

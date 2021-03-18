@@ -13,6 +13,8 @@ export class MovieListComponent implements OnInit, OnDestroy {
   movieInfo: MovieInfo;
   isNoResult = false;
   errorMsg: string;
+  currentPage = 1;
+  totalPages: number;
   constructor(
     private movieDataService: MovieDataService,
     private omdbService: OmdbService
@@ -28,7 +30,7 @@ export class MovieListComponent implements OnInit, OnDestroy {
       .subscribe((searchVal: string) => {
         if (searchVal) {
           this.isSearchApplied = true;
-          this.getMovies(searchVal, 1);
+          this.getMovies(searchVal, this.currentPage);
         } else {
           this.movieList = [];
         }
@@ -44,12 +46,17 @@ export class MovieListComponent implements OnInit, OnDestroy {
       if (res && res.Response === 'True') {
         this.movieList = res.Search;
         this.isNoResult = this.movieList.length ? false : true;
+        this.movieDataService.setTotalRecords(res.totalResults);
+        const pages: any = res.totalResults / 10;
+        this.totalPages = Math.ceil(pages);
+        console.log(this.totalPages);
       } else if (
         res &&
         res.Response === 'False' &&
         res.Error === 'Movie not found!'
       ) {
         this.movieList = [];
+        this.movieDataService.setTotalRecords(0);
         this.isNoResult = true;
         this.errorMsg = res.Error;
       } else if (
@@ -58,6 +65,7 @@ export class MovieListComponent implements OnInit, OnDestroy {
         res.Error === 'Too many results.'
       ) {
         this.movieList = [];
+        this.movieDataService.setTotalRecords(0);
         this.isNoResult = true;
         this.errorMsg = res.Error;
       }
