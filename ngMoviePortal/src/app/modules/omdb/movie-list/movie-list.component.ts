@@ -14,7 +14,10 @@ export class MovieListComponent implements OnInit, OnDestroy {
   isNoResult = false;
   errorMsg: string;
   currentPage = 1;
-  totalPages: number;
+  totalPages = 0;
+  totalItems = 0;
+  tableSize = 10;
+  searchVal: string;
   constructor(
     private movieDataService: MovieDataService,
     private omdbService: OmdbService
@@ -28,11 +31,14 @@ export class MovieListComponent implements OnInit, OnDestroy {
     this.movieDataService
       .getSearchAppliedStatus()
       .subscribe((searchVal: string) => {
+        this.movieList = [];
+        this.currentPage = 1;
+        this.searchVal = null;
+        this.totalItems = 0;
         if (searchVal) {
+          this.searchVal = searchVal;
           this.isSearchApplied = true;
           this.getMovies(searchVal, this.currentPage);
-        } else {
-          this.movieList = [];
         }
       });
   }
@@ -46,10 +52,10 @@ export class MovieListComponent implements OnInit, OnDestroy {
       if (res && res.Response === 'True') {
         this.movieList = res.Search;
         this.isNoResult = this.movieList.length ? false : true;
+        this.totalItems = res.totalResults;
         this.movieDataService.setTotalRecords(res.totalResults);
         const pages: any = res.totalResults / 10;
         this.totalPages = Math.ceil(pages);
-        console.log(this.totalPages);
       } else if (
         res &&
         res.Response === 'False' &&
@@ -70,6 +76,11 @@ export class MovieListComponent implements OnInit, OnDestroy {
         this.errorMsg = res.Error;
       }
     });
+  }
+
+  onTableDataChange(event): void {
+    this.currentPage = event;
+    this.getMovies(this.searchVal, this.currentPage);
   }
 
   moreDetails(id: string): void {

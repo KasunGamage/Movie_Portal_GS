@@ -17,7 +17,6 @@ export class SearchBarComponent implements OnInit, OnDestroy {
   }
 
   search(): void {
-    console.log(this.searchInputControl.value);
     this.movieDataService.setTotalRecords(0);
     this.movieDataService.setSearchAppliedStatus(this.searchInputControl.value);
   }

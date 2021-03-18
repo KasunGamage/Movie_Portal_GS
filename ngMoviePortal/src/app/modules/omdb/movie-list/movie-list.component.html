@@ -5,8 +5,18 @@
 <div *ngIf="isNoResult" class="txt-center border-dotted">
   <p class="txt-center">{{ errorMsg }}</p>
 </div>
+<div *ngIf="totalItems" class="d-flex justify-content-center pagination-panel">
+  <pagination-controls responsive="true" previousLabel="Prev" nextLabel="Next"
+    (pageChange)="onTableDataChange($event)">
+  </pagination-controls>
+</div>
 <div class="search-result-container m-t-30">
-  <div class="search-result--item" [style.width]="(movieInfo && (movie.imdbID === movieInfo.imdbID))? '65%':'35%'" *ngFor="let movie of movieList">
+  <div class="search-result--item" [style.width]="(movieInfo && (movie.imdbID === movieInfo.imdbID))? '65%':'35%'"
+    *ngFor="let movie of movieList | paginate : {
+    itemsPerPage: tableSize,
+    currentPage: currentPage,
+    totalItems: totalItems
+  };">
     <div class="left">
       <img src={{movie.Poster}} class="img" onerror="this.src='assets/images/notFound_1.png'" alt="alternative" />
     </div>
@@ -38,8 +48,10 @@
         <div class="centerHor">
           <div class="year color-grey p-l-10">{{movie.Year}}</div>
           <div class="details-button p-r-10">
-            <button class="submit-btn" [hidden]="movieInfo && (movie.imdbID === movieInfo.imdbID)" (click)="moreDetails(movie.imdbID)">DETAILS</button>
-            <button class="submit-btn" *ngIf="movieInfo && (movie.imdbID === movieInfo.imdbID)" (click)="setMovieDetailsEmpty()">COLLAPSE</button>
+            <button class="submit-btn" [hidden]="movieInfo && (movie.imdbID === movieInfo.imdbID)"
+              (click)="moreDetails(movie.imdbID)">DETAILS</button>
+            <button class="submit-btn" *ngIf="movieInfo && (movie.imdbID === movieInfo.imdbID)"
+              (click)="setMovieDetailsEmpty()">COLLAPSE</button>
           </div>
         </div>
       </div>
