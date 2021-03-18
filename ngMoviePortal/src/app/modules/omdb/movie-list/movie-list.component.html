@@ -16,6 +16,7 @@
           <span>{{movie.Title}}</span>
         </div>
         <div *ngIf="movieInfo && (movie.imdbID === movieInfo.imdbID)" class="movie-details">
+          <br>
           <span class="field-prop">Plot</span>
           <p class="no-margin">{{ movieInfo.Plot }}</p>
           <br>
