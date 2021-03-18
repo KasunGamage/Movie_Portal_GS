@@ -6,7 +6,7 @@
   <p class="txt-center">{{ errorMsg }}</p>
 </div>
 <div class="search-result-container m-t-30">
-  <div class="search-result--item" *ngFor="let movie of movieList">
+  <div class="search-result--item" [style.width]="(movieInfo && (movie.imdbID === movieInfo.imdbID))? '65%':'35%'" *ngFor="let movie of movieList">
     <div class="left">
       <img src={{movie.Poster}} class="img" onerror="this.src='assets/images/notFound_1.png'" alt="alternative" />
     </div>
@@ -35,9 +35,10 @@
       </div>
       <div class="bottom">
         <div class="centerHor">
-          <div class="year color-grey p-l-10 ">{{movie.Year}}</div>
-          <div class="details-button p-r-10 ">
-            <button class="submit-btn" (click)="moreDetails(movie.imdbID)">DETAILS</button>
+          <div class="year color-grey p-l-10">{{movie.Year}}</div>
+          <div class="details-button p-r-10">
+            <button class="submit-btn" [hidden]="movieInfo && (movie.imdbID === movieInfo.imdbID)" (click)="moreDetails(movie.imdbID)">DETAILS</button>
+            <button class="submit-btn" *ngIf="movieInfo && (movie.imdbID === movieInfo.imdbID)" (click)="setMovieDetailsEmpty()">COLLAPSE</button>
           </div>
         </div>
       </div>

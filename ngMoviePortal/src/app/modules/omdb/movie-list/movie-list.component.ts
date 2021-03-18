@@ -74,5 +74,9 @@ export class MovieListComponent implements OnInit, OnDestroy {
     });
   }
 
+  setMovieDetailsEmpty(): void {
+    this.movieInfo = null;
+  }
+
   ngOnDestroy(): void {}
 }
