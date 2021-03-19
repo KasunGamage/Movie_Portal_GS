@@ -1,0 +1,60 @@
+<app-search-bar></app-search-bar>
+<div *ngIf="!isSearchApplied" class="txt-center border-welcome">
+  <p>Welcome to OMDB Search, search something in the bar above!</p>
+</div>
+<div *ngIf="isNoResult" class="txt-center border-dotted">
+  <p class="txt-center">{{ errorMsg }}</p>
+</div>
+<div *ngIf="totalItems" class="d-flex justify-content-center pagination-panel">
+  <pagination-controls responsive="true" previousLabel="Prev" nextLabel="Next"
+    (pageChange)="onTableDataChange($event)">
+  </pagination-controls>
+</div>
+<div class="search-result-container m-t-30">
+  <div class="search-result--item" [style.width]="(movieInfo && (movie.imdbID === movieInfo.imdbID))? '65%':'35%'"
+    *ngFor="let movie of movieList | paginate : {
+    itemsPerPage: tableSize,
+    currentPage: currentPage,
+    totalItems: totalItems
+  };">
+    <div class="left">
+      <img src={{movie.Poster}} class="img" onerror="this.src='assets/images/notFound_1.png'" alt="alternative" />
+    </div>
+    <div class="right">
+      <div class="title p-hor-10">
+        <div class="movie-title">
+          <span>{{movie.Title}}</span>
+        </div>
+        <div *ngIf="movieInfo && (movie.imdbID === movieInfo.imdbID)" class="movie-details">
+          <br>
+          <span class="field-prop">Plot</span>
+          <p class="no-margin">{{ movieInfo.Plot }}</p>
+          <br>
+          <span class="field-prop">Actors</span>
+          <p class="no-margin">{{ movieInfo.Actors }}</p>
+          <br>
+          <span class="field-prop">Ratings</span>
+          <div class="no-margin" *ngFor="let rating of movieInfo.Ratings">
+            <span>-{{rating.Source}}: {{rating.Value}}</span>
+          </div>
+          <div *ngIf="movieInfo.Ratings && !movieInfo.Ratings.length" class="no-margin">
+            <span>
+              N/A
+            </span>
+          </div>
+        </div>
+      </div>
+      <div class="bottom">
+        <div class="centerHor">
+          <div class="year color-grey p-l-10">{{movie.Year}}</div>
+          <div class="details-button p-r-10">
+            <button class="submit-btn" [hidden]="movieInfo && (movie.imdbID === movieInfo.imdbID)"
+              (click)="moreDetails(movie.imdbID)">DETAILS</button>
+            <button class="submit-btn" *ngIf="movieInfo && (movie.imdbID === movieInfo.imdbID)"
+              (click)="setMovieDetailsEmpty()">COLLAPSE</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

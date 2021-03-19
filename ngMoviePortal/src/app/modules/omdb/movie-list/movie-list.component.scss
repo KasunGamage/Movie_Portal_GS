@@ -1,0 +1,148 @@
+.search-result-container {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+.search-result--item {
+  box-shadow: 0 4px 17px rgba(0, 0, 0, 0.35);
+  margin: 10px;
+  display: flex;
+  font-size: 24px;
+  width: 35%;
+  height: 400px;
+}
+
+@media screen and (min-width: 0px) and (max-width: 400px) {
+  .search-result--item {
+    width: 35% !important;
+  }
+}
+
+@media screen and (min-width: 401px) and (max-width: 1024px) {
+  .search-result--item {
+    width: 60% !important;
+  }
+}
+
+.right {
+  width: 55%;
+}
+
+.left {
+  width: 45%;
+}
+
+.title {
+  height: 80%;
+}
+
+.bottom {
+  height: 20%;
+  position: relative;
+  border-top-style: outset;
+}
+
+.year {
+  float: left;
+}
+
+.details-button {
+  float: right;
+}
+
+.centerHor {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 100%;
+}
+
+.txt-center {
+  text-align: center;
+}
+
+.border-dotted {
+  border-style: dotted;
+  border-color: #f53668;
+  background: #fdecf0;
+  margin: 30px 150px 0 150px;
+  color: #e41b4d;
+  font-size: larger;
+}
+
+.border-welcome {
+  border-style: dotted;
+  border-color: #f2f5f7;
+  background: #f2f5f7;
+  margin: 30px 150px 0 150px;
+  color: black;
+  font-size: larger;
+}
+
+.m-t-30 {
+  margin-top: 30px;
+}
+
+.submit-btn {
+  width: 100px;
+  background-color: #307afb;
+  border: none;
+  color: white;
+  padding: 7px;
+  text-decoration: none;
+  margin: 4px 2px;
+  cursor: pointer;
+  outline: none;
+  font-weight: bold;
+  border-radius: 4px;
+}
+
+.color-grey {
+  color: #d5d8dc;
+}
+
+.p-r-10 {
+  padding-right: 10px;
+}
+
+.p-t-10 {
+  padding-top: 10px;
+}
+
+.p-l-10 {
+  padding-left: 10px;
+}
+
+.p-hor-10 {
+  padding: 0 10px;
+}
+
+.no-margin {
+  margin: 0 !important;
+}
+
+.field-prop {
+  font-family: cursive;
+}
+
+.movie-title {
+  width: 100%;
+  padding-top: 10px;
+}
+
+.img {
+  height: 400px;
+  width: 100%;
+}
+
+.movie-details {
+  font-size: medium;
+  height: 80%;
+  overflow: auto;
+}
+
+.pagination-panel {
+  text-align: center;
+}

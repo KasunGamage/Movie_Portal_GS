@@ -1,0 +1,71 @@
+.spacer {
+  flex: 1;
+}
+
+.toolbar {
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 60px;
+  display: flex;
+  align-items: center;
+  background-color: white;
+  color: black;
+  font-weight: 600;
+  box-shadow: 5px 10px 8px #888888;
+  padding: 0 15%;
+}
+
+.p-r-10 {
+  padding-right: 10px;
+}
+
+.p-l-10 {
+  padding-left: 10px;
+}
+
+.m-r-10 {
+  margin-right: 10px;
+}
+
+.submit-btn {
+  width: 100px;
+  background-color: #307afb;
+  border: none;
+  color: white;
+  padding: 7px;
+  text-decoration: none;
+  margin: 4px 2px;
+  cursor: pointer;
+  outline: none;
+  font-weight: bold;
+  border-radius: 4px;
+}
+
+input {
+  outline: 0;
+  border-width: 0 0 2px;
+  height: 23px;
+  border-color: darkgray;
+}
+input:focus {
+  border-color: #307afb;
+}
+
+.f-f-auto {
+  font-family: auto;
+}
+
+@media screen and (min-width: 0px) and (max-width: 400px) {
+  #searchTopic{ display: block; }  /* show it on small screens */
+  #records{ display: block; }  /* show it on small screens */
+}
+
+@media screen and (min-width: 401px) and (max-width: 1024px) {
+  #searchTopic { display: none; }   /* hide it elsewhere */
+  #records { display: none; }   /* hide it elsewhere */
+}
+
+.records {
+  font-size: smaller;
+}

@@ -66,7 +66,8 @@
         "serve": {
           "builder": "@angular-devkit/build-angular:dev-server",
           "options": {
-            "browserTarget": "ngMoviePortal:build"
+            "browserTarget": "ngMoviePortal:build",
+            "proxyConfig": "src/proxy.conf.json"            
           },
           "configurations": {
             "production": {
@@ -123,6 +124,10 @@
           }
         }
       }
-    }},
-  "defaultProject": "ngMoviePortal"
+    }
+  },
+  "defaultProject": "ngMoviePortal",
+  "cli": {
+    "analytics": "3b87a430-4abd-4dba-95bc-00b67593f9a8"
+  }
 }
