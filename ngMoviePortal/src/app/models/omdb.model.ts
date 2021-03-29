@@ -2,7 +2,6 @@ export interface SearchParameters {
   title?: string;
   page?: number | null;
 }
-
 export interface Movie {
   Poster?: string;
   Title?: string;

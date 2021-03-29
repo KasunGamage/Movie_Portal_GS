@@ -6,8 +6,7 @@
   <p class="txt-center">{{ errorMsg }}</p>
 </div>
 <div *ngIf="totalItems" class="d-flex justify-content-center pagination-panel">
-  <pagination-controls responsive="true" previousLabel="Prev" nextLabel="Next"
-    (pageChange)="onTableDataChange($event)">
+  <pagination-controls responsive="true" previousLabel="Prev" nextLabel="Next" (pageChange)="onTableDataChange($event)">
   </pagination-controls>
 </div>
 <div class="search-result-container m-t-30">

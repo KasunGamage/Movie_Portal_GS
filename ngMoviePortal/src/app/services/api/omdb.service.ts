@@ -12,9 +12,7 @@ export class OmdbService {
   constructor(private httpService: HttpService) {}
 
   getMovies(searchCriteria: SearchParameters): Observable<any> {
-    const apiURL = `${ApiConfig.apiEndpoint}?apikey=${ApiConfig.apiKey}&s=${
-      searchCriteria.title
-    }&page=${searchCriteria.page}`;
+    const apiURL = `${ApiConfig.apiEndpoint}?apikey=${ApiConfig.apiKey}&s=${searchCriteria.title}&page=${searchCriteria.page}`;
     return this.httpService.get(apiURL);
   }
 
