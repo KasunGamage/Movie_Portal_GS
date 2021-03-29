@@ -1,14 +1,12 @@
 import { Injectable } from '@angular/core';
-import { BehaviorSubject } from 'rxjs';
+import { BehaviorSubject, Subject } from 'rxjs';
 import { Observable } from 'rxjs/internal/Observable';
 
 @Injectable({
   providedIn: 'root',
 })
 export class MovieDataService {
-  private isSearchApplied: BehaviorSubject<string> = new BehaviorSubject<string>(
-    ''
-  );
+  private isSearchApplied: Subject<string> = new Subject<string>();
   private totalrecords: BehaviorSubject<number> = new BehaviorSubject<number>(
     0
   );
