@@ -1,16 +1,10 @@
 {
   "hosting": {
-    "public": "dist\\ngMoviePortal",
+    "public": "dist/ngMoviePortal",
     "ignore": [
       "firebase.json",
       "**/.*",
       "**/node_modules/**"
-    ],
-    "rewrites": [
-      {
-        "source": "**",
-        "destination": "/index.html"
-      }
     ]
   }
 }

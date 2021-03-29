@@ -8,11 +8,11 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
-      - run: ng build --prod
+      - run: npm ci && npm run build
       - uses: FirebaseExtended/action-hosting-deploy@v0
         with:
           repoToken: '${{ secrets.GITHUB_TOKEN }}'
-          firebaseServiceAccount: '${{ secrets.FIREBASE_SERVICE_ACCOUNT_IONIC_4_COMPONENT_MASTER }}'
-          projectId: ionic-4-component-master
+          firebaseServiceAccount: '${{ secrets.FIREBASE_SERVICE_ACCOUNT_ANGULAR_APPS_HOSTING }}'
+          projectId: angular-apps-hosting
         env:
           FIREBASE_CLI_PREVIEWS: hostingchannels
