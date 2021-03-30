@@ -1,11 +1,11 @@
 <div class="toolbar" role="banner">
-  <h2 class="p-l-10 p-r-10 f-f-auto">OMDB Search <span class="records" id="records">({{ totalRecords | async }}
-      results)</span></h2>
+  <h3 class="p-r-10 f-f-auto fnt-xl">OMDB Search <span class="records" id="records">({{ totalRecords | async }}
+      results)</span></h3>
   <div class="spacer"></div>
-  <span id="searchTopic" class="p-r-10">Search a movie</span>
-  <input class="m-r-10" id="search" name="search" autocomplete="on" type="text" [formControl]="searchInputControl"
-    (keyup.enter)="search()" />
-  <div class="p-r-10">
-    <button class="submit-btn" (click)="search()">Search</button>
+  <span id="searchTopic" class="p-r-10 fnt-l">Search a movie</span>
+  <input class="m-r-10 fnt-es" id="search" name="search" autocomplete="on" type="text"
+    [formControl]="searchInputControl" (keyup.enter)="search()" />
+  <div>
+    <button class="submit-btn" (click)="search()">SEARCH</button>
   </div>
 </div>

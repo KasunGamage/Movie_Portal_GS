@@ -11,9 +11,9 @@
   align-items: center;
   background-color: white;
   color: black;
-  font-weight: 600;
+  // font-weight: 600;
   box-shadow: 5px 10px 8px #888888;
-  padding: 0 15%;
+  padding: 0 13.5%;
 }
 
 .p-r-10 {
@@ -33,7 +33,7 @@
   background-color: #307afb;
   border: none;
   color: white;
-  padding: 7px;
+  padding: 12px;
   text-decoration: none;
   margin: 4px 2px;
   cursor: pointer;
@@ -57,15 +57,36 @@ input:focus {
 }
 
 @media screen and (min-width: 0px) and (max-width: 400px) {
-  #searchTopic{ display: block; }  /* show it on small screens */
-  #records{ display: block; }  /* show it on small screens */
+  #searchTopic {
+    display: block;
+  } /* show it on small screens */
+  #records {
+    display: block;
+  } /* show it on small screens */
 }
 
 @media screen and (min-width: 401px) and (max-width: 1024px) {
-  #searchTopic { display: none; }   /* hide it elsewhere */
-  #records { display: none; }   /* hide it elsewhere */
+  #searchTopic {
+    display: none;
+  } /* hide it elsewhere */
+  #records {
+    display: none;
+  } /* hide it elsewhere */
 }
 
 .records {
   font-size: smaller;
+  font-weight: lighter;
+}
+
+.fnt-l {
+  font-size: large;
+}
+
+.fnt-xl {
+  font-size: x-large;
+}
+
+.fnt-es {
+  font-size: x-small;
 }

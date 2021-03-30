@@ -16,22 +16,22 @@
 
 @media screen and (min-width: 0px) and (max-width: 400px) {
   .search-result--item {
-    width: 35% !important;
+    width: 36% !important;
   }
 }
 
 @media screen and (min-width: 401px) and (max-width: 1024px) {
   .search-result--item {
-    width: 60% !important;
+    width: 73% !important;
   }
 }
 
 .right {
-  width: 55%;
+  width: 70%;
 }
 
 .left {
-  width: 45%;
+  width: 30%;
 }
 
 .title {
@@ -67,7 +67,7 @@
   border-style: dotted;
   border-color: #f53668;
   background: #fdecf0;
-  margin: 30px 150px 0 150px;
+  margin: 30px 13.5% 0 13.5%;
   color: #e41b4d;
   font-size: larger;
 }
@@ -76,7 +76,7 @@
   border-style: dotted;
   border-color: #f2f5f7;
   background: #f2f5f7;
-  margin: 30px 150px 0 150px;
+  margin: 30px 13.5% 0 13.5%;
   color: black;
   font-size: larger;
 }
@@ -90,7 +90,7 @@
   background-color: #307afb;
   border: none;
   color: white;
-  padding: 7px;
+  padding: 12px;
   text-decoration: none;
   margin: 4px 2px;
   cursor: pointer;
@@ -103,20 +103,20 @@
   color: #d5d8dc;
 }
 
-.p-r-10 {
-  padding-right: 10px;
+.p-r-15 {
+  padding-right: 15px;
 }
 
 .p-t-10 {
   padding-top: 10px;
 }
 
-.p-l-10 {
-  padding-left: 10px;
+.p-l-15 {
+  padding-left: 15px;
 }
 
-.p-hor-10 {
-  padding: 0 10px;
+.p-hor-15 {
+  padding: 0 15px;
 }
 
 .no-margin {
