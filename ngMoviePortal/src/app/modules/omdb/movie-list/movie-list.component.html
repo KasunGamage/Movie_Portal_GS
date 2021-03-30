@@ -15,7 +15,7 @@
     itemsPerPage: tableSize,
     currentPage: currentPage,
     totalItems: totalItems
-  };">
+  }; trackBy: trackByFn">
     <div class="left">
       <img src={{movie?.Poster}} class="img" onerror="this.src='assets/images/notFound_1.png'" alt="alternative" />
     </div>
@@ -48,7 +48,7 @@
           <div class="year color-grey p-l-10">{{formatYear(movie.Year)}}</div>
           <div class="details-button p-r-10">
             <button class="submit-btn" [hidden]="movieInfo && (movie.imdbID === movieInfo.imdbID)"
-              (click)="moreDetails(movie.imdbID)">DETAILS</button>
+              (click)="getById(movie.imdbID)">DETAILS</button>
             <button class="submit-btn" *ngIf="movieInfo && (movie.imdbID === movieInfo.imdbID)"
               (click)="setMovieDetailsEmpty()">COLLAPSE</button>
           </div>
