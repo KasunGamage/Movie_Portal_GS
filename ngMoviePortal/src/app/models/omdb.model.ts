@@ -42,3 +42,16 @@ export interface MovieInfo {
   Website: string;
   Response: string;
 }
+
+export interface MovieListResponse {
+  Response?: string; // True || False
+  Search?: Movie[];
+  totalResults?: string;
+  Error?: string;
+}
+
+export interface MovieResponse {
+  Response?: string;
+  Search?: Movie[];
+  totalResults?: string;
+}

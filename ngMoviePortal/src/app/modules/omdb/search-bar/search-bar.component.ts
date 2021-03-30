@@ -16,6 +16,9 @@ export class SearchBarComponent implements OnInit, OnDestroy {
     this.totalRecords = this.movieDataService.getTotalRecords();
   }
 
+  /**
+   * listen to the search value changes & save the search value globally
+   */
   search(): void {
     this.movieDataService.setTotalRecords(0);
     this.movieDataService.setSearchAppliedStatus(this.searchInputControl.value);

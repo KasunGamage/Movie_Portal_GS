@@ -7,24 +7,40 @@ import { Observable } from 'rxjs/internal/Observable';
 })
 export class MovieDataService {
   private isSearchApplied: Subject<string> = new Subject<string>();
-  private totalrecords: BehaviorSubject<number> = new BehaviorSubject<number>(
+  private totalRecords: BehaviorSubject<number> = new BehaviorSubject<number>(
     0
   );
   constructor() {}
 
-  setSearchAppliedStatus(status: string): void {
-    this.isSearchApplied.next(status);
+  /**
+   * set the search value
+   * @param value movie name
+   */
+  setSearchAppliedStatus(value: string): void {
+    this.isSearchApplied.next(value);
   }
 
+  /**
+   * get the latest search value
+   * @returns returns the latest search value as a observable
+   */
   getSearchAppliedStatus(): Observable<string> {
     return this.isSearchApplied.asObservable();
   }
 
+  /**
+   * set the total movie record count
+   * @param records number of movies
+   */
   setTotalRecords(records: number): void {
-    this.totalrecords.next(records);
+    this.totalRecords.next(records);
   }
 
+  /**
+   * get the latest movie count
+   * @returns returns the latest movie count as a observable
+   */
   getTotalRecords(): Observable<number> {
-    return this.totalrecords.asObservable();
+    return this.totalRecords.asObservable();
   }
 }
