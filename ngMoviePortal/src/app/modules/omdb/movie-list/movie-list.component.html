@@ -1,15 +1,15 @@
 <app-search-bar></app-search-bar>
-<div *ngIf="!isSearchApplied" class="txt-center border-welcome">
+<div *ngIf="!isSearchApplied" class="txt-center border-welcome f-f-serif txt-color-grey-light">
   <p>{{ welcomeMsg }}</p>
 </div>
-<div *ngIf="isNoResult" class="txt-center border-dotted">
+<div *ngIf="isNoResult" class="txt-center border-dotted f-f-serif">
   <p class="txt-center">{{ errorMsg }}</p>
 </div>
-<div *ngIf="totalItems" class="d-flex justify-content-center pagination-panel p-t-10">
+<div *ngIf="totalItems" class="d-flex justify-content-center pagination-panel p-t-10 f-f-serif">
   <pagination-controls responsive="true" previousLabel="Prev" nextLabel="Next" (pageChange)="onTableDataChange($event)">
   </pagination-controls>
 </div>
-<div class="search-result-container">
+<div class="search-result-container f-f-serif">
   <div class="search-result--item" [style.width]="(movieInfo && (movie.imdbID === movieInfo.imdbID))? '73%':'36%'"
     *ngFor="let movie of movieList | paginate : {
     itemsPerPage: tableSize,
@@ -22,7 +22,7 @@
     <div class="right">
       <div class="title p-hor-15">
         <div class="movie-title">
-          <span>{{movie.Title}}</span>
+          <span class="txt-color-grey-light">{{movie.Title}}</span>
         </div>
         <div *ngIf="movieInfo && (movie.imdbID === movieInfo.imdbID)" class="movie-details">
           <br>
@@ -34,7 +34,7 @@
           <br>
           <span class="field-prop">Ratings</span>
           <div class="no-margin" *ngFor="let rating of movieInfo.Ratings">
-            <span>-{{rating.Source}}: {{rating.Value}}</span>
+            <span>- {{rating.Source}}: {{rating.Value}}</span>
           </div>
           <div *ngIf="movieInfo.Ratings && !movieInfo.Ratings.length" class="no-margin">
             <span>
@@ -45,7 +45,7 @@
       </div>
       <div class="bottom">
         <div class="centerHor">
-          <div class="year color-grey p-l-15">{{formatYear(movie.Year)}}</div>
+          <div class="centerHorLeft year color-grey p-l-15" id="year">{{formatYear(movie.Year)}}</div>
           <div class="details-button p-r-15">
             <button class="submit-btn" [hidden]="movieInfo && (movie.imdbID === movieInfo.imdbID)"
               (click)="getById(movie.imdbID)">DETAILS</button>
