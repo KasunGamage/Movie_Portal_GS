@@ -9,10 +9,6 @@ Currently this project is using the latest versions of all: Angular
 ## Demo
 If you just want to check this project out, you can see the online demo at https://angular-apps-hosting.web.app/.
 
-****
-
-You will find many many different components, pages, pipes, services, of which can be very useful to you. Note though that these are all experimental!
-
 ## Setup
 
 Requirements to use this project:
